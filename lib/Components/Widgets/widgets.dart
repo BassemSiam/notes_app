@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:note_app/Components/Widgets/Custom_text_filed.dart';
 
 import 'Custom_Notes_items.dart';
 
@@ -75,6 +76,18 @@ class CustomBottomShet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal:  16),
+      child: Column(
+        children: [
+          SizedBox(
+            height: 32,
+          ),
+          CustomTextFiled(
+            
+          ),
+        ],
+      ),
+    );
   }
 }
