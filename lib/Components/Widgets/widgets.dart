@@ -19,14 +19,18 @@ class NoteViweBody extends StatelessWidget {
             height: 16,
           ),
           Expanded(
-            child: ListView.separated(
-              itemCount: 10,
-              separatorBuilder: (context, index) => SizedBox(
-                height: 8,
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 16),
+              child: ListView.separated(
+                physics: BouncingScrollPhysics(),
+                itemCount: 10,
+                separatorBuilder: (context, index) => SizedBox(
+                  height: 8,
+                ),
+                itemBuilder: (context, index) {
+                  return NoteItem();
+                },
               ),
-              itemBuilder: (context, index) {
-                return NoteItem();
-              },
             ),
           )
         ],
@@ -60,6 +64,19 @@ class CustomAppBar extends StatelessWidget {
                   size: 30,
                 ))),
       ],
+    );
+  }
+}
+
+
+
+class CustomBottomShet extends StatelessWidget {
+  const CustomBottomShet({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      
     );
   }
 }

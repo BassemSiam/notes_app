@@ -9,7 +9,14 @@ class NoteScreen extends StatelessWidget {
     return Scaffold(
       body: const NoteViweBody(),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          showModalBottomSheet(
+            context: context,
+            builder: (context) {
+              return const CustomBottomShet();
+            },
+          );
+        },
         child: Icon(Icons.add),
       ),
     );
