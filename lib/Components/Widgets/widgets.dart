@@ -84,7 +84,14 @@ class CustomBottomShet extends StatelessWidget {
             height: 32,
           ),
           CustomTextFiled(
-            
+            hintText: 'Title',
+          ),
+          SizedBox(
+            height: 26,
+          ),
+          CustomTextFiled(
+            hintText: 'Content',
+            maxLine: 5,
           ),
         ],
       ),
