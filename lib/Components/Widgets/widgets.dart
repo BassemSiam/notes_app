@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:note_app/Components/Consts/Colors.dart';
+import 'package:note_app/Components/Consts/constants.dart';
 import 'package:note_app/Components/Widgets/Custom_text_filed.dart';
 
 import 'Custom_Notes_items.dart';

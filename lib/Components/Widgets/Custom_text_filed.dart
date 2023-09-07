@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:note_app/Components/Consts/Colors.dart';
+import 'package:note_app/Components/Consts/constants.dart';
 
 class CustomTextFiled extends StatelessWidget {
   const CustomTextFiled({super.key, required this.hintText, this.maxLine = 1});
