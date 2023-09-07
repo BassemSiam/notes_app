@@ -12,7 +12,7 @@ class NoteScreen extends StatelessWidget {
         onPressed: () {
           showModalBottomSheet(
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30)
+              borderRadius: BorderRadius.circular(20)
             ),
             context: context,
             builder: (context) {
