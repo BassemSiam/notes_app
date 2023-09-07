@@ -74,8 +74,22 @@ class CustomAppBar extends StatelessWidget {
   }
 }
 
-class CustomBottomShet extends StatelessWidget {
+class CustomBottomShet extends StatefulWidget {
   const CustomBottomShet({super.key});
+
+  @override
+  State<CustomBottomShet> createState() => _CustomBottomShetState();
+}
+
+class _CustomBottomShetState extends State<CustomBottomShet> {
+  var formKey = GlobalKey<FormState>();
+
+  AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
+
+  TextEditingController? titleControler,
+      subTitleControler = TextEditingController();
+
+  String? title, subTitle;
 
   @override
   Widget build(BuildContext context) {
@@ -83,29 +97,52 @@ class CustomBottomShet extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: ListView(
         children: [
-          Column(
-            children: [
-              SizedBox(
-                height: 32,
-              ),
-              CustomTextFiled(
-                hintText: 'Title',
-              ),
-              SizedBox(
-                height: 26,
-              ),
-              CustomTextFiled(
-                hintText: 'Content',
-                maxLine: 5,
-              ),
-              SizedBox(
-                height: 25,
-              ),
-              CustomButton(),
-              SizedBox(
-                height: 15,
-              ),
-            ],
+          Form(
+            key: formKey,
+            autovalidateMode: autovalidateMode,
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 32,
+                ),
+                CustomTextFiled(
+                  controler: titleControler,
+                  onSaved: (value) {
+                    title = value;
+                  },
+                  hintText: 'Title',
+                ),
+                const SizedBox(
+                  height: 26,
+                ),
+                CustomTextFiled(
+                  controler: subTitleControler,
+                  onSaved: (value) {
+                    subTitle = value;
+                  },
+                  hintText: 'Content',
+                  maxLine: 5,
+                ),
+                const SizedBox(
+                  height: 25,
+                ),
+                CustomButton(
+                  onTap: () {
+                    if (formKey.currentState!.validate()) {
+                      formKey.currentState!.save();
+                    } else {
+                      autovalidateMode = AutovalidateMode.always;
+                      setState(() {
+                        
+                      });
+                    }
+                  },
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+              ],
+            ),
           ),
         ],
       ),
@@ -114,8 +151,8 @@ class CustomBottomShet extends StatelessWidget {
 }
 
 class CustomButton extends StatelessWidget {
-  const CustomButton({super.key});
-
+  const CustomButton({super.key, required this.onTap});
+  final void Function() onTap;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -133,7 +170,7 @@ class CustomButton extends StatelessWidget {
                 ),
               ),
             ),
-            onPressed: () {},
+            onPressed: onTap,
             child: Text(
               'Add',
               style: TextStyle(fontSize: 22, color: Colors.black),
