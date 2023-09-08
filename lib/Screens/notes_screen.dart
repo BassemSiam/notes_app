@@ -16,7 +16,7 @@ class NoteScreen extends StatelessWidget {
             ),
             context: context,
             builder: (context) {
-              return const CustomBottomShet();
+              return CustomBottomSheet();
             },
           );
         },

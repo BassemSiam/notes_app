@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:note_app/Components/Consts/constants.dart';
 import 'package:note_app/Components/Widgets/Custom_text_filed.dart';
+import 'package:note_app/cubits/add_note_cubit/add_notes_cubit.dart';
 
 import 'Custom_Notes_items.dart';
 
@@ -74,14 +77,7 @@ class CustomAppBar extends StatelessWidget {
   }
 }
 
-class CustomBottomShet extends StatefulWidget {
-  const CustomBottomShet({super.key});
-
-  @override
-  State<CustomBottomShet> createState() => _CustomBottomShetState();
-}
-
-class _CustomBottomShetState extends State<CustomBottomShet> {
+class CustomBottomSheet extends StatelessWidget {
   var formKey = GlobalKey<FormState>();
 
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
@@ -93,59 +89,72 @@ class _CustomBottomShetState extends State<CustomBottomShet> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: ListView(
-        children: [
-          Form(
-            key: formKey,
-            autovalidateMode: autovalidateMode,
-            child: Column(
+    return BlocConsumer<AddNotesCubit, AddNotesStates>(
+      listener: (context, state) {
+        if (state is AddNotesSuccessState) {
+          Navigator.pop(context);
+        }
+        if (state is AddNotesErrorState) {
+          print('filled : ${state.error}');
+        }
+      },
+      builder: (context, state) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: ModalProgressHUD(
+            inAsyncCall: state is AddNotesLoadingState ? true : false,
+            child: ListView(
               children: [
-                const SizedBox(
-                  height: 32,
-                ),
-                CustomTextFiled(
-                  controler: titleControler,
-                  onSaved: (value) {
-                    title = value;
-                  },
-                  hintText: 'Title',
-                ),
-                const SizedBox(
-                  height: 26,
-                ),
-                CustomTextFiled(
-                  controler: subTitleControler,
-                  onSaved: (value) {
-                    subTitle = value;
-                  },
-                  hintText: 'Content',
-                  maxLine: 5,
-                ),
-                const SizedBox(
-                  height: 25,
-                ),
-                CustomButton(
-                  onTap: () {
-                    if (formKey.currentState!.validate()) {
-                      formKey.currentState!.save();
-                    } else {
-                      autovalidateMode = AutovalidateMode.always;
-                      setState(() {
-                        
-                      });
-                    }
-                  },
-                ),
-                const SizedBox(
-                  height: 15,
+                Form(
+                  key: formKey,
+                  autovalidateMode: autovalidateMode,
+                  child: Column(
+                    children: [
+                      const SizedBox(
+                        height: 32,
+                      ),
+                      CustomTextFiled(
+                        controler: titleControler,
+                        onSaved: (value) {
+                          title = value;
+                        },
+                        hintText: 'Title',
+                      ),
+                      const SizedBox(
+                        height: 26,
+                      ),
+                      CustomTextFiled(
+                        controler: subTitleControler,
+                        onSaved: (value) {
+                          subTitle = value;
+                        },
+                        hintText: 'Content',
+                        maxLine: 5,
+                      ),
+                      const SizedBox(
+                        height: 25,
+                      ),
+                      CustomButton(
+                        onTap: () {
+                          if (formKey.currentState!.validate()) {
+                            formKey.currentState!.save();
+                          } else {
+                            autovalidateMode = AutovalidateMode.always;
+                            //setState(() {});
+                          }
+                        },
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
