@@ -8,30 +8,30 @@ class NoteViweBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 40,
           ),
-          CustomAppBar(
+          const CustomAppBar(
             title: 'Notes',
             icon: Icons.search,
           ),
-          SizedBox(
+          const SizedBox(
             height: 16,
           ),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.only(bottom: 16),
               child: ListView.separated(
-                physics: BouncingScrollPhysics(),
+                physics: const BouncingScrollPhysics(),
                 itemCount: 10,
-                separatorBuilder: (context, index) => SizedBox(
+                separatorBuilder: (context, index) => const SizedBox(
                   height: 8,
                 ),
                 itemBuilder: (context, index) {
-                  return NoteItem();
+                  return const NoteItem();
                 },
               ),
             ),
@@ -52,7 +52,7 @@ class CustomAppBar extends StatelessWidget {
       children: [
         Text(
           title,
-          style: TextStyle(fontSize: 28),
+          style: const TextStyle(fontSize: 28),
         ),
         const Spacer(),
         Container(
@@ -83,10 +83,10 @@ class CustomButton extends StatelessWidget {
           .size
           .width, // >> same like the double.infinty but has diffrent errors,
       height: 50,
-      decoration: BoxDecoration(),
+      decoration: const BoxDecoration(),
       child: ElevatedButton(
           style: ButtonStyle(
-            backgroundColor: MaterialStatePropertyAll(primaryColor),
+            backgroundColor: const MaterialStatePropertyAll(primaryColor),
             shape: MaterialStatePropertyAll(
               ContinuousRectangleBorder(
                 borderRadius: BorderRadius.circular(55),
@@ -95,10 +95,10 @@ class CustomButton extends StatelessWidget {
           ),
           onPressed: onTap,
           child: isLoading
-              ? CircularProgressIndicator(
+              ? const CircularProgressIndicator(
                 color: Colors.black,
               )
-              : Text(
+              : const Text(
                   'Add',
                   style: TextStyle(fontSize: 22, color: Colors.black),
                 )),

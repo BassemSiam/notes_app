@@ -12,6 +12,7 @@ class NoteScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showModalBottomSheet(
+            isScrollControlled: true,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20)
             ),
@@ -21,7 +22,7 @@ class NoteScreen extends StatelessWidget {
             },
           );
         },
-        child: Icon(Icons.add),
+        child:const Icon(Icons.add),
       ),
     );
   }
