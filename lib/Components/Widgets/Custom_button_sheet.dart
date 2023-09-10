@@ -9,26 +9,29 @@ import 'package:note_app/cubits/add_note_cubit/add_notes_cubit.dart';
 class CustomBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AddNotesCubit, AddNotesStates>(
-      listener: (context, state) {
-        if (state is AddNotesSuccessState) {
-          Navigator.pop(context);
-        }
-        if (state is AddNotesErrorState) {
-          print('filled : ${state.error}');
-        }
-      },
-      builder: (context, state) {
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: ModalProgressHUD(
-            inAsyncCall: state is AddNotesLoadingState ? true : false,
-            child: SingleChildScrollView(
-              child: const addNoteForm(),
+    return BlocProvider(
+      create: (context) => AddNotesCubit(),
+      child: BlocConsumer<AddNotesCubit, AddNotesStates>(
+        listener: (context, state) {
+          if (state is AddNotesSuccessState) {
+            Navigator.pop(context);
+          }
+          if (state is AddNotesErrorState) {
+            print('filled : ${state.error}');
+          }
+        },
+        builder: (context, state) {
+          return AbsorbPointer(
+            absorbing: state is AddNotesLoadingState ? true : false ,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: SingleChildScrollView(
+                child: const addNoteForm(),
+              ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }
@@ -80,21 +83,26 @@ class _addNoteFormState extends State<addNoteForm> {
           const SizedBox(
             height: 25,
           ),
-          CustomButton(
-            onTap: () {
-              if (formKey.currentState!.validate()) {
-                formKey.currentState!.save();
+          BlocBuilder<AddNotesCubit, AddNotesStates>(
+            builder: (context, state) {
+              return CustomButton(
+                isLoading: state is AddNotesLoadingState ? true : false ,
+                onTap: () {
+                  if (formKey.currentState!.validate()) {
+                    formKey.currentState!.save();
 
-                var noteModel = NoteModel(
-                    title: title!,
-                    subTitle: subTitle!,
-                    date: DateTime.now().toString(),
-                    color: Colors.blue.value);
-                AddNotesCubit.get(context).addNote(noteModel);
-              } else {
-                autovalidateMode = AutovalidateMode.always;
-                setState(() {});
-              }
+                    var noteModel = NoteModel(
+                        title: title!,
+                        subTitle: subTitle!,
+                        date: DateTime.now().toString(),
+                        color: Colors.blue.value);
+                    AddNotesCubit.get(context).addNote(noteModel);
+                  } else {
+                    autovalidateMode = AutovalidateMode.always;
+                    setState(() {});
+                  }
+                },
+              );
             },
           ),
           const SizedBox(
