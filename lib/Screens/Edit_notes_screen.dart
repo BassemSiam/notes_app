@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:note_app/Components/Widgets/Custom_app_bar_widget.dart';
 import 'package:note_app/Components/Widgets/Custom_text_filed.dart';
-
-import '../Components/Widgets/widgets.dart';
 
 class EditNoteScreen extends StatelessWidget {
   const EditNoteScreen({super.key});
@@ -10,7 +9,7 @@ class EditNoteScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Padding(
-        padding:  EdgeInsets.symmetric(horizontal: 16),
+        padding: EdgeInsets.symmetric(horizontal: 16),
         child: Column(
           children: [
             SizedBox(
@@ -27,7 +26,7 @@ class EditNoteScreen extends StatelessWidget {
             SizedBox(
               height: 20,
             ),
-            CustomTextFiled(hintText: 'Content',maxLine: 5),
+            CustomTextFiled(hintText: 'Content', maxLine: 5),
           ],
         ),
       ),
