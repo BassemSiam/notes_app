@@ -3,8 +3,8 @@ import 'package:note_app/Models/note_model.dart';
 import 'package:note_app/Screens/Edit_notes_screen.dart';
 
 class NoteItem extends StatelessWidget {
-  const NoteItem({super.key ,required this.notes});
-  
+  const NoteItem({super.key, required this.notes});
+
   final NoteModel notes;
 
   @override
@@ -48,7 +48,9 @@ class NoteItem extends StatelessWidget {
                   Icons.delete,
                   size: 35,
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  notes.delete();
+                },
               ),
             ),
             SizedBox(
@@ -57,7 +59,7 @@ class NoteItem extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(right: 24),
               child: Text(
-               notes.date,
+                notes.date,
                 style: TextStyle(
                     fontSize: 16, color: Colors.black.withOpacity(0.6)),
               ),

@@ -12,21 +12,44 @@ class NotesListViwe extends StatelessWidget {
     return BlocBuilder<NotesCubit, NotesStates>(
       builder: (context, state) {
         List<NoteModel> notes = NotesCubit.get(context).notes!;
-        return Padding(
+        if (notes.isEmpty) {
+          return const Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.menu,color: Colors.grey,size: 150 ),
+              Text('No Notes Added',
+                  style: TextStyle(color: Colors.grey , fontSize: 40)),
+            ],
+          );
+        }else {
+          return Padding(
           padding: const EdgeInsets.only(bottom: 16),
           child: ListView.separated(
-            physics: const BouncingScrollPhysics(),
-            itemCount: notes.length,
-            separatorBuilder: (context, index) => const SizedBox(
-              height: 8,
-            ),
-            itemBuilder: (context, index) {
-              return  NoteItem(
-                notes: notes[index],
-              );
-            },
-          ),
+              physics: const BouncingScrollPhysics(),
+              itemCount: notes.length,
+              separatorBuilder: (context, index) => const SizedBox(
+                    height: 8,
+                  ),
+              itemBuilder: (context, index) {
+                return Dismissible(
+                  key: const Key('id'),
+                  background: Container(
+                    color: Colors.red,
+                    child: const Icon(
+                      Icons.cancel,
+                      size: 26,
+                    ),
+                  ),
+                  onDismissed: (direction) {
+                    notes[index].delete();
+                  },
+                  child: NoteItem(
+                    notes: notes[index],
+                  ),
+                );
+              }),
         );
+        }
       },
     );
   }
