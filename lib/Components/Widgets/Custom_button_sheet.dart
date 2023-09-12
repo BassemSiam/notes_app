@@ -104,7 +104,7 @@ class _addNoteFormState extends State<addNoteForm> {
                     var noteModel = NoteModel(
                         title: title!,
                         subTitle: subTitle!,
-                        date:formatDate(DateTime.now(), [dd, ',' , M, '-', yyyy]),
+                        date:formatDate(DateTime.now(), [dd, '/', mm, '/', yyyy]),
                         color: Colors.blue.value);
                     AddNotesCubit.get(context).addNote(noteModel);
                   } else {
