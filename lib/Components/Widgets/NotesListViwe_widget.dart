@@ -16,39 +16,43 @@ class NotesListViwe extends StatelessWidget {
           return const Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.menu,color: Colors.grey,size: 150 ),
+              Icon(Icons.menu, color: Colors.grey, size: 150),
               Text('No Notes Added',
-                  style: TextStyle(color: Colors.grey , fontSize: 40)),
+                  style: TextStyle(color: Colors.grey, fontSize: 40)),
             ],
           );
-        }else {
+        } else {
           return Padding(
-          padding: const EdgeInsets.only(bottom: 16),
-          child: ListView.separated(
-              physics: const BouncingScrollPhysics(),
-              itemCount: notes.length,
-              separatorBuilder: (context, index) => const SizedBox(
-                    height: 8,
-                  ),
-              itemBuilder: (context, index) {
-                return Dismissible(
-                  key: const Key('id'),
-                  background: Container(
-                    color: Colors.red,
-                    child: const Icon(
-                      Icons.cancel,
-                      size: 26,
+            padding: const EdgeInsets.only(bottom: 16),
+            child: ListView.separated(
+                physics: const BouncingScrollPhysics(),
+                itemCount: notes.length,
+                separatorBuilder: (context, index) => const SizedBox(
+                      height: 8,
                     ),
-                  ),
-                  onDismissed: (direction) {
-                    notes[index].delete();
-                  },
-                  child: NoteItem(
-                    notes: notes[index],
-                  ),
-                );
-              }),
-        );
+                itemBuilder: (context, index) {
+                  return Dismissible(
+                    key: const Key('id'),
+                    background: Container(
+                      color: Colors.red,
+                      child: const Icon(
+                        Icons.cancel,
+                        size: 50,
+                      ),
+                    ),
+                    onDismissed: (direction) {
+                      notes[index].delete();
+                      NotesCubit.get(context).showNotes();
+
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('${notes[index].title} deleted')));
+                    },
+                    child: NoteItem(
+                      notes: notes[index],
+                    ),
+                  );
+                }),
+          );
         }
       },
     );

@@ -8,37 +8,36 @@ import 'package:note_app/Components/Widgets/Custom_text_filed.dart';
 import 'package:note_app/Components/Widgets/widgets.dart';
 import 'package:note_app/Models/note_model.dart';
 import 'package:note_app/cubits/add_note_cubit/add_notes_cubit.dart';
+import 'package:note_app/cubits/notes_cubit/notes_cubit.dart';
 
 class CustomBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AddNotesCubit(),
-      child: BlocConsumer<AddNotesCubit, AddNotesStates>(
-        listener: (context, state) {
-          if (state is AddNotesSuccessState) {
-            Navigator.pop(context);
-          }
-          if (state is AddNotesErrorState) {
-            print('filled : ${state.error}');
-          }
-        },
-        builder: (context, state) {
-          return AbsorbPointer(
-            absorbing: state is AddNotesLoadingState ? true : false,
-            child: Padding(
-              padding: EdgeInsets.only(
-                  left: 16,
-                  right: 16,
-                  bottom: MediaQuery.of(context).viewInsets.bottom),
-              child: SingleChildScrollView(
-                physics: BouncingScrollPhysics(),
-                child: const addNoteForm(),
-              ),
+    return BlocConsumer<AddNotesCubit, AddNotesStates>(
+      listener: (context, state) {
+        if (state is AddNotesSuccessState) {
+          NotesCubit.get(context).showNotes();
+          Navigator.pop(context);
+        }
+        if (state is AddNotesErrorState) {
+          print('filled : ${state.error}');
+        }
+      },
+      builder: (context, state) {
+        return AbsorbPointer(
+          absorbing: state is AddNotesLoadingState ? true : false,
+          child: Padding(
+            padding: EdgeInsets.only(
+                left: 16,
+                right: 16,
+                bottom: MediaQuery.of(context).viewInsets.bottom),
+            child: SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
+              child: const addNoteForm(),
             ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }
@@ -104,7 +103,8 @@ class _addNoteFormState extends State<addNoteForm> {
                     var noteModel = NoteModel(
                         title: title!,
                         subTitle: subTitle!,
-                        date:formatDate(DateTime.now(), [dd, '/', mm, '/', yyyy]),
+                        date: formatDate(
+                            DateTime.now(), [dd, '/', mm, '/', yyyy]),
                         color: Colors.blue.value);
                     AddNotesCubit.get(context).addNote(noteModel);
                   } else {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:note_app/Models/note_model.dart';
 import 'package:note_app/Screens/Edit_notes_screen.dart';
+import 'package:note_app/cubits/notes_cubit/notes_cubit.dart';
 
 class NoteItem extends StatelessWidget {
   const NoteItem({super.key, required this.notes});
@@ -14,11 +15,11 @@ class NoteItem extends StatelessWidget {
         Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => EditNoteScreen(),
+              builder: (context) => const EditNoteScreen(),
             ));
       },
       child: Container(
-        padding: EdgeInsets.only(top: 24, bottom: 24, left: 16),
+        padding: const EdgeInsets.only(top: 24, bottom: 24, left: 16),
         decoration: BoxDecoration(
           color: Color(notes.color),
           borderRadius: BorderRadius.circular(16),
@@ -33,7 +34,7 @@ class NoteItem extends StatelessWidget {
                 padding: const EdgeInsets.only(bottom: 16),
                 child: Text(
                   notes.title,
-                  style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
                 ),
               ),
               subtitle: Text(
@@ -44,16 +45,17 @@ class NoteItem extends StatelessWidget {
                 ),
               ),
               trailing: IconButton(
-                icon: Icon(
+                icon: const Icon(
                   Icons.delete,
                   size: 35,
                 ),
                 onPressed: () {
                   notes.delete();
+                  NotesCubit.get(context).showNotes();
                 },
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Padding(
