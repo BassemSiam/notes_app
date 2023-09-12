@@ -9,12 +9,11 @@ class NotesCubit extends Cubit<NotesStates> {
   NotesCubit() : super(NotesInitialState());
   static NotesCubit get(context) => BlocProvider.of(context);
 
-    showNotes(){
-   
-      var notesBox = Hive.box<NoteModel>(noteBox);
+  List<NoteModel>? notes;
 
-      List<NoteModel> notes = notesBox.values.toList();
-      emit(NotesSuccessState(notes));
-    
+  showNotes() {
+    var notesBox = Hive.box<NoteModel>(noteBox);
+    notes = notesBox.values.toList();
+    emit(NotesSuccessState());
   }
 }
