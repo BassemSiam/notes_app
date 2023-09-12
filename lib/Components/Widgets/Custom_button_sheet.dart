@@ -1,6 +1,7 @@
 import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:note_app/Components/Widgets/Custom_button.dart';
 import 'package:note_app/Components/Widgets/Custom_text_filed.dart';
@@ -24,10 +25,12 @@ class CustomBottomSheet extends StatelessWidget {
         },
         builder: (context, state) {
           return AbsorbPointer(
-            absorbing: state is AddNotesLoadingState ? true : false ,
+            absorbing: state is AddNotesLoadingState ? true : false,
             child: Padding(
-              padding:  EdgeInsets.only(left: 16 , right: 16 , 
-              bottom: MediaQuery.of(context).viewInsets.bottom),
+              padding: EdgeInsets.only(
+                  left: 16,
+                  right: 16,
+                  bottom: MediaQuery.of(context).viewInsets.bottom),
               child: SingleChildScrollView(
                 physics: BouncingScrollPhysics(),
                 child: const addNoteForm(),
@@ -90,15 +93,18 @@ class _addNoteFormState extends State<addNoteForm> {
           BlocBuilder<AddNotesCubit, AddNotesStates>(
             builder: (context, state) {
               return CustomButton(
-                isLoading: state is AddNotesLoadingState ? true : false ,
+                isLoading: state is AddNotesLoadingState ? true : false,
                 onTap: () {
                   if (formKey.currentState!.validate()) {
                     formKey.currentState!.save();
 
+                    // var cuttentDate = DateTime.now();
+                    // var formatedCurrentDate = DateFormat.yMEd().format(cuttentDate);
+
                     var noteModel = NoteModel(
                         title: title!,
                         subTitle: subTitle!,
-                        date: formatDate(DateTime.now(),[dd, ',', M, '-', yyyy]),
+                        date:formatDate(DateTime.now(), [dd, ',' , M, '-', yyyy]),
                         color: Colors.blue.value);
                     AddNotesCubit.get(context).addNote(noteModel);
                   } else {
