@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:note_app/cubits/add_note_cubit/add_notes_cubit.dart';
 
 class colorItem extends StatelessWidget {
   const colorItem({super.key, required this.isActive, required this.color});
@@ -9,7 +10,7 @@ class colorItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return isActive
-        ?  CircleAvatar(
+        ? CircleAvatar(
             backgroundColor: Colors.white,
             radius: 38,
             child: CircleAvatar(
@@ -17,7 +18,7 @@ class colorItem extends StatelessWidget {
               radius: 34,
             ),
           )
-        :  CircleAvatar(
+        : CircleAvatar(
             backgroundColor: color,
             radius: 38,
           );
@@ -45,7 +46,7 @@ class _ColorListViweState extends State<ColorListViwe> {
     return SizedBox(
       height: 38 * 2,
       child: ListView.separated(
-        physics:const BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         separatorBuilder: (context, index) => const SizedBox(
           width: 12,
         ),
@@ -53,6 +54,7 @@ class _ColorListViweState extends State<ColorListViwe> {
           return GestureDetector(
             onTap: () {
               currentIndex = index;
+              AddNotesCubit.get(context).color = colors[index];
               setState(() {});
             },
             child: colorItem(
