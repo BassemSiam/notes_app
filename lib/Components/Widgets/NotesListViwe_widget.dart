@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app/Components/Widgets/Custom_Notes_items.dart';
 import 'package:note_app/Models/note_model.dart';
-import 'package:note_app/cubits/notes_cubit/notes_cubit.dart';
+import 'package:note_app/cubits/cubit/notes_cubit.dart';
 
 class NotesListViwe extends StatelessWidget {
   const NotesListViwe({super.key});

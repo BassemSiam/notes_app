@@ -1,7 +1,8 @@
+import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:note_app/Models/note_model.dart';
 import 'package:note_app/Screens/Edit_notes_screen.dart';
-import 'package:note_app/cubits/notes_cubit/notes_cubit.dart';
+import 'package:note_app/cubits/cubit/notes_cubit.dart';
 
 class NoteItem extends StatelessWidget {
   const NoteItem({super.key, required this.notes});
@@ -15,7 +16,7 @@ class NoteItem extends StatelessWidget {
         Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => const EditNoteScreen(),
+              builder: (context) =>  EditNoteScreen(note: notes,),
             ));
       },
       child: Container(
@@ -38,7 +39,7 @@ class NoteItem extends StatelessWidget {
                 ),
               ),
               subtitle: Text(
-                notes.title,
+                notes.subTitle,
                 style: TextStyle(
                   fontSize: 18,
                   color: Colors.black.withOpacity(0.6),

@@ -1,14 +1,11 @@
 import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
-import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:note_app/Components/Widgets/Custom_button.dart';
 import 'package:note_app/Components/Widgets/Custom_text_filed.dart';
-import 'package:note_app/Components/Widgets/widgets.dart';
 import 'package:note_app/Models/note_model.dart';
 import 'package:note_app/cubits/add_note_cubit/add_notes_cubit.dart';
-import 'package:note_app/cubits/notes_cubit/notes_cubit.dart';
+import 'package:note_app/cubits/cubit/notes_cubit.dart';
 
 class CustomBottomSheet extends StatelessWidget {
   @override
@@ -16,8 +13,8 @@ class CustomBottomSheet extends StatelessWidget {
     return BlocConsumer<AddNotesCubit, AddNotesStates>(
       listener: (context, state) {
         if (state is AddNotesSuccessState) {
-          NotesCubit.get(context).showNotes();
           Navigator.pop(context);
+          NotesCubit.get(context).showNotes();
         }
         if (state is AddNotesErrorState) {
           print('filled : ${state.error}');
