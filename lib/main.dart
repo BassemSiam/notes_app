@@ -6,6 +6,7 @@ import 'package:note_app/Models/note_model.dart';
 import 'package:note_app/Screens/notes_screen.dart';
 import 'package:note_app/cubits/add_note_cubit/add_notes_cubit.dart';
 import 'package:note_app/cubits/cubit/notes_cubit.dart';
+import 'package:toast/toast.dart';
 
 import 'Components/Consts/constants.dart';
 
@@ -24,6 +25,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    
+    ToastContext().init(context);
     return MultiBlocProvider(
       providers: [
         BlocProvider(

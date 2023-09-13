@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app/Components/Widgets/Custom_button.dart';
 import 'package:note_app/Components/Widgets/Custom_text_filed.dart';
+import 'package:note_app/Components/Widgets/colorListViwe.dart';
 import 'package:note_app/Models/note_model.dart';
 import 'package:note_app/cubits/add_note_cubit/add_notes_cubit.dart';
 import 'package:note_app/cubits/cubit/notes_cubit.dart';
@@ -16,9 +17,7 @@ class CustomBottomSheet extends StatelessWidget {
           Navigator.pop(context);
           NotesCubit.get(context).showNotes();
         }
-        if (state is AddNotesErrorState) {
-          print('filled : ${state.error}');
-        }
+        if (state is AddNotesErrorState) {}
       },
       builder: (context, state) {
         return AbsorbPointer(
@@ -86,6 +85,10 @@ class _addNoteFormState extends State<addNoteForm> {
           const SizedBox(
             height: 25,
           ),
+          const ColorListViwe(),
+          const SizedBox(
+            height: 25,
+          ),
           BlocBuilder<AddNotesCubit, AddNotesStates>(
             builder: (context, state) {
               return CustomButton(
@@ -120,3 +123,4 @@ class _addNoteFormState extends State<addNoteForm> {
     );
   }
 }
+

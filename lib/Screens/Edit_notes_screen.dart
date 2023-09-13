@@ -3,6 +3,7 @@ import 'package:note_app/Components/Widgets/Custom_app_bar_widget.dart';
 import 'package:note_app/Components/Widgets/Custom_text_filed.dart';
 import 'package:note_app/Models/note_model.dart';
 import 'package:note_app/cubits/cubit/notes_cubit.dart';
+import 'package:toast/toast.dart';
 
 class EditNoteScreen extends StatelessWidget {
   EditNoteScreen({super.key, required this.note});
@@ -16,6 +17,7 @@ class EditNoteScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ToastContext().init(context);
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -39,6 +41,18 @@ class EditNoteScreen extends StatelessWidget {
                 note.save();
                 NotesCubit.get(context).showNotes();
                 Navigator.pop(context);
+                Toast.show(
+                  "the notes has been updated ",
+                  gravity: Toast.bottom,
+                  backgroundColor: Colors.green,
+                  border: Border.all(),
+                  duration: 3,
+                  backgroundRadius: 20,
+                  textStyle:TextStyle(
+                    fontFamily: 'Poppins',
+                    fontSize: 18
+                  )
+                );
               },
             ),
             const SizedBox(
